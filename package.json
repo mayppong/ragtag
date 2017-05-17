@@ -1,0 +1,22 @@
+{
+  "name": "ragtag",
+  "version": "0.0.1",
+  "description": "Turn-based RPG",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^3.5.2",
+    "@types/mocha": "^2.2.41",
+    "chai": "^3.5.0",
+    "mocha": "^3.3.0",
+    "mocha-typescript": "^1.1.2",
+    "tslint": "^5.2.0",
+    "typescript": "^2.3.2",
+    "typings": "^2.1.1"
+  },
+  "scripts": {
+    "test": "tsc && ./node_modules/.bin/mocha"
+  },
+  "author": "",
+  "license": "MIT"
+}
