@@ -15,7 +15,7 @@
     "typings": "^2.1.1"
   },
   "scripts": {
-    "test": "tsc && ./node_modules/.bin/mocha"
+    "test": "tsc && mocha"
   },
   "author": "",
   "license": "MIT"
