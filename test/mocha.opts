@@ -1,3 +1,3 @@
 --ui mocha-typescript
 
-_build/test/*.js
+_build/test/**/*.js
