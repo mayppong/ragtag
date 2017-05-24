@@ -9,7 +9,7 @@ interface IStats {
   MDEF: number;
 }
 
-interface ICombatable {
+interface ICombatable extends Character {
   readonly stats: IStats
 }
 
