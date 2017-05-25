@@ -7,10 +7,10 @@ import { ICombatable } from './character/combatable';
  * creation.
  */
 class Party {
-  readonly maxSize = 5;
+  readonly maxSize: number = 5;
 
   protected _members: ICombatable[];
-  get members() { return this._members; }
+  get members(): ICombatable[] { return this._members; }
 
   constructor(members: ICombatable[], config?: any) {
     if (config && config.maxSize) {
