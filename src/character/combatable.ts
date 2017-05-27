@@ -1,6 +1,6 @@
 import Character from './character';
 
-interface IStats {
+interface IAttributes {
   HP: number;
   MP: number;
   PATK: number;
@@ -10,22 +10,22 @@ interface IStats {
 }
 
 interface ICombatable extends Character {
-  readonly stats: IStats
+  readonly stats: IAttributes
 }
 
 class CombatableCharacter extends Character implements ICombatable {
 
-  readonly stats: IStats
+  readonly stats: IAttributes
   static defaultStats = {
     HP: 1, MP: 1, PATK: 1, PDEF: 1, MATK: 1, MDEF: 1
   }
 
-  constructor(name: string, stats?: IStats) {
+  constructor(name: string, stats?: IAttributes) {
     super(name);
     this.stats = stats || CombatableCharacter.defaultStats;
   }
 
 }
 
-export { ICombatable, IStats };
+export { ICombatable, IAttributes };
 export default CombatableCharacter;
