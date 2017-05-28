@@ -1,4 +1,4 @@
-import { IStats } from './combatable';
+import { IAttributes } from './combatable';
 import CombatableCharacter from './combatable';
 
 class Hero extends CombatableCharacter {
