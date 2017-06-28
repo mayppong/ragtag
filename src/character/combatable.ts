@@ -30,6 +30,12 @@ class CombatableCharacter extends Character implements ICombatable {
     this.stats = stats || CombatableCharacter.defaultStats;
   }
 
+  toJSON() {
+    return {
+      name: this.name,
+      attributes: this.stats
+    };
+  }
 }
 
 export { ICombatable, IAttributes };
