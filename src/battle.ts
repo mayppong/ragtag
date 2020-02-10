@@ -7,6 +7,11 @@ class Battle {
   constructor(parties: Party[]) {
     this._parties = parties;
   }
+/*
+  fight(attackers, defenders) {
+
+  }
+  */
 }
 
 export default Battle;

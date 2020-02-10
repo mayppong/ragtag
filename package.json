@@ -2,8 +2,29 @@
   "name": "ragtag",
   "version": "0.0.1",
   "description": "Turn-based RPG",
-  "main": "index.js",
-  "dependencies": {},
+  "build": {
+    "appId": "ragtag.electron",
+    "mac": {
+      "category": "public.app-category.role-playing-games"
+    },
+    "files": [
+      "_build/*"
+    ]
+  },
+  "targets": {
+    "browser": {
+      "context": "browser"
+    },
+    "electron": {
+      "context": "electron-main",
+      "engines": {
+        "electron": ">=7.1"
+      }
+    }
+  },
+  "dependencies": {
+    "phaser": "^3.22.0"
+  },
   "devDependencies": {
     "@types/chai": "^4.2.8",
     "@types/mocha": "^7.0.1",
