@@ -3,6 +3,15 @@ services:
   test:
     image: "node:13.8-slim"
     command: "npm test"
-    volumes:
-      - ./:/ragtag
     working_dir: /ragtag
+    volumes:
+      - ./:/ragtag:delegated
+
+  build:
+    image: "node:13.8-slim"
+    command: "npm run build"
+    working_dir: /ragtag
+    volumes:
+      - ./:/ragtag:delegated
+    ports:
+      - "8000:1234"
