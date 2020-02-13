@@ -1,4 +1,6 @@
+.parcel-cache
 node_modules
 _build
 
 *.swp
+.DS_Store
