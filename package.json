@@ -2,26 +2,6 @@
   "name": "ragtag",
   "version": "0.0.1",
   "description": "Turn-based RPG",
-  "build": {
-    "appId": "ragtag.electron",
-    "mac": {
-      "category": "public.app-category.role-playing-games"
-    },
-    "files": [
-      "_build/*"
-    ]
-  },
-  "targets": {
-    "browser": {
-      "context": "browser"
-    },
-    "electron": {
-      "context": "electron-main",
-      "engines": {
-        "electron": ">=7.1"
-      }
-    }
-  },
   "dependencies": {
     "phaser": "^3.22.0"
   },
@@ -45,8 +25,8 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register test/**/*.ts",
     "lint": "./node_modules/.bin/eslint",
-    "build": "./node_modules/.bin/parcel --target=browser ./index.html"
+    "build": "./node_modules/.bin/parcel ./index.html"
   },
-  "author": "",
+  "author": "May Pongpitpitak <me@mayppong.com>",
   "license": "MIT"
 }

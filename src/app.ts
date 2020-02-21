@@ -1,25 +1,26 @@
 import 'phaser';
 
+import BootScene from './scenes/boot';
+import BattleScene from './scenes/battle';
+
 const gameConfig: Phaser.Types.Core.GameConfig = {
   title: 'Sample',
+  backgroundColor: 0x000000,
 
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-
   scale: {
-    width: window.innerWidth,
-    height: window.innerHeight,
+    //we place it in the middle of the page.
+    autoCenter: Phaser.Scale.CENTER_BOTH
   },
-
   physics: {
     default: 'arcade',
     arcade: {
       debug: false,
     },
   },
-
-  backgroundColor: '#0000F0',
+  scene: [BootScene, BattleScene]
 };
 
 const game = new Phaser.Game(gameConfig);

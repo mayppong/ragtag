@@ -1,0 +1,10 @@
+{
+  "short_name": "Ragtags",
+  "name": "Ragtags - The Adventure",
+  "icons": [],
+  "start_url": "/",
+  "background_color": "#000000",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/"
+}
