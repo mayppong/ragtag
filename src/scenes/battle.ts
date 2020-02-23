@@ -4,6 +4,16 @@ import slimes from '../../assets/sample-slimes-sprite.png';
 
 class BattleScene extends Phaser.Scene {
 
+  // temporary sample data set
+  characters: any[] = [
+    {x: 550, y: 100, sprite: 'heroes', spriteFrame: 1},
+    {x: 550, y: 300, sprite: 'heroes', spriteFrame: 4},
+    {x: 150, y: 100, sprite: 'slimes', spriteFrame: 1},
+    {x: 150, y: 300, sprite: 'slimes', spriteFrame: 2}
+  ];
+
+  characterSprites: Components.CharacterSprite[] = [];
+
   constructor() {
     super({ key: 'BattleScene'});
   }
@@ -20,29 +30,17 @@ class BattleScene extends Phaser.Scene {
   create () {
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
-    let graphics = this.add.graphics();
-    this.addCharacters(this);
-    this.addControls(graphics);
+    this.addCharacterSprites(this, this.characters);
   }
 
-  private addCharacters(scene: Phaser.Scene) {
-    let redDigimon = new Character(scene, 550, 100, 'heroes', 1);
-    redDigimon.setScale(5);
-    this.add.existing(redDigimon);
+  private addCharacterSprites (scene: Phaser.Scene, characters: any[]) {
+    for (let char of characters) {
+      let sprite = new Components.CharacterSprite(scene, char.x, char.y, char.sprite, char.spriteFrame);
+      sprite.setScale(5);
 
-    let blueDigimon = new Character(scene, 550, 300, 'heroes', 4);
-    blueDigimon.setScale(5);
-    this.add.existing(blueDigimon);
-
-    let blueEvee = new Character(scene, 150, 100, 'slimes', 1);
-    blueEvee.setScale(5);
-    blueEvee.setFlipX(true);
-    this.add.existing(blueEvee);
-
-    let redEvee = new Character(scene, 150, 300, 'slimes', 2);
-    redEvee.setScale(5);
-    redEvee.setFlipX(true);
-    this.add.existing(redEvee);
+      this.characterSprites.push(sprite);
+      scene.add.existing(sprite);
+    }
   }
 
 }
