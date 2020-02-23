@@ -1,5 +1,4 @@
-import Character from './components/character';
-import BattleControl from './components/battle-control';
+import * as Components from './components/index';
 import heroes from '../../assets/sample-heroes-sprite.png';
 import slimes from '../../assets/sample-slimes-sprite.png';
 
@@ -15,7 +14,7 @@ class BattleScene extends Phaser.Scene {
     this.load.spritesheet({key: 'slimes', url: slimes, frameConfig: { frameWidth: 5, frameHeight: 10 }});
 
     // load scene components
-    this.scene.add('BattleControl', BattleControl, true);
+    this.scene.add('BattleControl', Components.BattleControl, true);
   }
 
   create () {
