@@ -45,17 +45,6 @@ class BattleScene extends Phaser.Scene {
     this.add.existing(redEvee);
   }
 
-  private addControls(graphics: Phaser.GameObjects.Graphics) {
-    graphics.lineStyle(1, 0xffffff);
-    graphics.fillStyle(0x031f4c, 1);
-    graphics.strokeRect(1, 398, 148, 200);
-    graphics.fillRect(1, 398, 148, 200);
-    graphics.strokeRect(151, 398, 148, 200);
-    graphics.fillRect(151, 398, 148, 200);
-    graphics.strokeRect(301, 398, 497, 200);
-    graphics.fillRect(301, 398, 497, 200);
-    return graphics;
-  }
 }
 
 export default BattleScene;
