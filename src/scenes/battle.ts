@@ -31,6 +31,7 @@ class BattleScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
     this.addCharacterSprites(this, this.characters);
+    this.scene.launch('BattleControl', this.characterSprites);
   }
 
   private addCharacterSprites (scene: Phaser.Scene, characters: any[]) {
