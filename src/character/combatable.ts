@@ -10,12 +10,11 @@ interface IAttributes {
 }
 
 interface ICombatable extends Character {
-  readonly stats: IAttributes
+  readonly stats?: IAttributes;
 }
 
 class CombatableCharacter extends Character implements ICombatable {
 
-  readonly stats: IAttributes
   static defaultStats = {
     HP: 1, MP: 1, PATK: 1, PDEF: 1, MATK: 1, MDEF: 1
   }
@@ -25,16 +24,18 @@ class CombatableCharacter extends Character implements ICombatable {
   get MATK() { return this.stats.MATK; }
   get MDEF() { return this.stats.MDEF; }
 
-  constructor(name: string, stats?: IAttributes) {
-    super(name);
+  constructor(
+      readonly id: string,
+      readonly stats?: IAttributes) {
+    super(id);
     this.stats = stats || CombatableCharacter.defaultStats;
   }
 
   toJSON() {
     return {
-      name: this.name,
-      attributes: this.stats
-    };
+      id: this.id,
+      stats: this.stats
+    }
   }
 }
 
