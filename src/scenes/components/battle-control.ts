@@ -1,3 +1,5 @@
+import { Menu } from './battle-controls/index';
+
 interface IPosition {
   x: number,
   y: number
@@ -23,6 +25,16 @@ class BattleControl extends Phaser.Scene {
     this.drawControlsBox(graphics);
 
     let menus = this.add.container(this.position.x, this.position.y);
+
+    let enemiesMenu = new Menu(this, 1, 10);
+    menus.add(enemiesMenu);
+
+    let actionsMenu = new Menu(this, 151, 10);
+    actionsMenu.addMenuItem('Attack');
+    menus.add(actionsMenu);
+
+    let heroesMenu = new Menu(this, 301, 10);
+    menus.add(heroesMenu);
   }
 
   private drawControlsBox(graphics: Phaser.GameObjects.Graphics) {
