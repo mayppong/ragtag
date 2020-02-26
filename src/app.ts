@@ -4,7 +4,7 @@ import BootScene from './scenes/boot';
 import BattleScene from './scenes/battle';
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
-  title: 'Sample',
+  title: 'Ragtag',
   backgroundColor: 0x000000,
 
   type: Phaser.AUTO,
