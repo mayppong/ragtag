@@ -1,8 +1,24 @@
-import Character from './components/character';
-import heroes from '../../assets/sample-heroes-sprite.png';
-import slimes from '../../assets/sample-slimes-sprite.png';
+import * as Components from './components/index';
+import CombatableCharacter from '../character/combatable';
+
+import heroesData from '../../data/heroes.json';
+import monstersData from '../../data/monsters.json';
+import heroeSprites from '../../assets/sample-heroes-sprite.png';
+import slimeSprites from '../../assets/sample-slimes-sprite.png';
 
 class BattleScene extends Phaser.Scene {
+
+  // temporary sample data set
+  heroes: any[] = [
+    {id: 'ragtag.roy', spriteConfig: {x: 550, y: 100, sprite: 'heroSprites', spriteFrame: 1}},
+    {id: 'ragtag.lennie', spriteConfig: {x: 550, y: 300, sprite: 'heroSprites', spriteFrame: 4}}
+  ];
+  monsters: any[] = [
+    {id: 'ragtag.slime', spriteConfig: {x: 150, y: 100, sprite: 'slimeSprites', spriteFrame: 1}},
+    {id: 'ragtag.slime', spriteConfig: {x: 150, y: 300, sprite: 'slimeSprites', spriteFrame: 2}}
+  ];
+
+  characterSprites: Components.CharacterSprite[] = [];
 
   constructor() {
     super({ key: 'BattleScene'});
@@ -10,49 +26,46 @@ class BattleScene extends Phaser.Scene {
 
   preload () {
     // load resources
-    this.load.spritesheet({key: 'heroes', url: heroes, frameConfig: { frameWidth: 5, frameHeight: 10 }});
-    this.load.spritesheet({key: 'slimes', url: slimes, frameConfig: { frameWidth: 5, frameHeight: 10 }});
+    this.load.spritesheet({key: 'heroSprites', url: heroeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }});
+    this.load.spritesheet({key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }});
+
+    this.load.json('heroesData', heroesData);
+    this.load.json('monstersData', monstersData);
+
+    // load scene components
+    this.scene.add('BattleControl', Components.BattleControl, true);
   }
 
   create () {
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
-    let graphics = this.add.graphics();
-    this.addCharacters(this);
-    this.addControls(graphics);
+    let heroesData = this.cache.json.get('heroesData');
+    let heroes = this.heroes.map(function(hero) {
+      hero.character = new CombatableCharacter(hero.id);
+      return hero;
+    });
+    this.addCharacterSprites(this, heroes);
+
+    let monstersData = this.cache.json.get('monstersData');
+    let monsters = this.monsters.map(function(monster) {
+      monster.character = new CombatableCharacter(monster.id);
+      return monster;
+    });
+    this.addCharacterSprites(this, monsters);
+
+    this.scene.launch('BattleControl', this.characterSprites);
   }
 
-  private addCharacters(scene: Phaser.Scene) {
-    let redDigimon = new Character(scene, 550, 100, 'heroes', 1);
-    redDigimon.setScale(5);
-    this.add.existing(redDigimon);
+  private addCharacterSprites (scene: Phaser.Scene, characters: any[]) {
+    for (let char of characters) {
+      let sprite = new Components.CharacterSprite(scene, char.character, char.spriteConfig);
+      sprite.setScale(5);
 
-    let blueDigimon = new Character(scene, 550, 300, 'heroes', 4);
-    blueDigimon.setScale(5);
-    this.add.existing(blueDigimon);
-
-    let blueEvee = new Character(scene, 150, 100, 'slimes', 1);
-    blueEvee.setScale(5);
-    blueEvee.setFlipX(true);
-    this.add.existing(blueEvee);
-
-    let redEvee = new Character(scene, 150, 300, 'slimes', 2);
-    redEvee.setScale(5);
-    redEvee.setFlipX(true);
-    this.add.existing(redEvee);
+      this.characterSprites.push(sprite);
+      scene.add.existing(sprite);
+    }
   }
 
-  private addControls(graphics: Phaser.GameObjects.Graphics) {
-    graphics.lineStyle(1, 0xffffff);
-    graphics.fillStyle(0x031f4c, 1);
-    graphics.strokeRect(1, 398, 148, 200);
-    graphics.fillRect(1, 398, 148, 200);
-    graphics.strokeRect(151, 398, 148, 200);
-    graphics.fillRect(151, 398, 148, 200);
-    graphics.strokeRect(301, 398, 497, 200);
-    graphics.fillRect(301, 398, 497, 200);
-    return graphics;
-  }
 }
 
 export default BattleScene;

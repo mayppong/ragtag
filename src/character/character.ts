@@ -4,11 +4,11 @@
  */
 class Character {
   constructor(
-    readonly name: string ) {
+    readonly id: string) {
   }
 
   toJSON() {
-    return {name: this.name};
+    return { id: this.id };
   }
 }
 
