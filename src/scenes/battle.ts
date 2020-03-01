@@ -18,7 +18,8 @@ class BattleScene extends Phaser.Scene {
     {id: 'ragtag.slime', spriteConfig: {x: 150, y: 300, sprite: 'slimeSprites', spriteFrame: 2}}
   ];
 
-  characterSprites: Components.CharacterSprite[] = [];
+  heroSprites: Components.CharacterSprite[] = [];
+  monsterSprites: Components.CharacterSprite[] = [];
 
   constructor() {
     super({ key: 'BattleScene'});
@@ -33,37 +34,33 @@ class BattleScene extends Phaser.Scene {
     this.load.json('monstersData', monstersData);
 
     // load scene components
-    this.scene.add('BattleControl', Components.BattleControl, true);
+    this.scene.add('BattleControl', Components.BattleControl, false);
   }
 
   create () {
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
     let heroesData = this.cache.json.get('heroesData');
-    let heroes = this.heroes.map(function(hero) {
+    this.heroSprites = this.heroes.map((hero) => {
       hero.character = new CombatableCharacter(hero.id);
-      return hero;
+      let sprite = this.addCharacterSprite(this, hero);
+      return sprite;
     });
-    this.addCharacterSprites(this, heroes);
 
     let monstersData = this.cache.json.get('monstersData');
-    let monsters = this.monsters.map(function(monster) {
+    this.monsterSprites = this.monsters.map((monster) => {
       monster.character = new CombatableCharacter(monster.id);
-      return monster;
+      let sprite = this.addCharacterSprite(this, monster);
+      return sprite;
     });
-    this.addCharacterSprites(this, monsters);
-
-    this.scene.launch('BattleControl', this.characterSprites);
+    this.scene.launch('BattleControl', [this.heroSprites, this.monsterSprites]);
   }
 
-  private addCharacterSprites (scene: Phaser.Scene, characters: any[]) {
-    for (let char of characters) {
-      let sprite = new Components.CharacterSprite(scene, char.character, char.spriteConfig);
-      sprite.setScale(5);
-
-      this.characterSprites.push(sprite);
-      scene.add.existing(sprite);
-    }
+  private addCharacterSprite(scene: Phaser.Scene, character: any) {
+    let sprite = new Components.CharacterSprite(scene, character.character, character.spriteConfig);
+    sprite.setScale(5);
+    this.add.existing(sprite);
+    return sprite;
   }
 
 }

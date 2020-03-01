@@ -1,4 +1,5 @@
 import { Menu } from './battle-controls/index';
+import CharacterSprite from './character-sprite';
 
 interface IPosition {
   x: number,
@@ -17,7 +18,10 @@ class BattleControl extends Phaser.Scene {
     super({ key: 'BattleControl'});
   }
 
-  create() {
+  create(parties: CharacterSprite[][]) {
+    let heroes = parties[0];
+    let monsters = parties[1];
+
     let graphics = this.add.graphics(this.position);
     graphics.lineStyle(1, 0xffffff);
     graphics.fillStyle(0x031f4c, 1);
@@ -26,14 +30,20 @@ class BattleControl extends Phaser.Scene {
 
     let menus = this.add.container(this.position.x, this.position.y);
 
-    let enemiesMenu = new Menu(this, 1, 10);
+    let enemiesMenu = new Menu(this, 301, 10);
+    monsters.forEach((monster) => {
+      enemiesMenu.addMenuItem(monster.character.id);
+    });
     menus.add(enemiesMenu);
 
     let actionsMenu = new Menu(this, 151, 10);
     actionsMenu.addMenuItem('Attack');
     menus.add(actionsMenu);
 
-    let heroesMenu = new Menu(this, 301, 10);
+    let heroesMenu = new Menu(this, 1, 10);
+    heroes.forEach((hero) => {
+      heroesMenu.addMenuItem(hero.character.id)
+    });
     menus.add(heroesMenu);
   }
 
