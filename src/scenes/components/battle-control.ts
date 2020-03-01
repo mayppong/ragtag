@@ -11,52 +11,38 @@ interface ISize {
 }
 
 class BattleControl extends Phaser.Scene {
-  readonly position: IPosition = {x: 0, y: 400};
-  readonly size: ISize = {height: 200, width: 600};
+  static readonly defaultCharacterControlPositions: IPosition[] = [{x: 0, y: 0}, {x: 0, y: 100}, {x: 0, y: 200}, {x: 270, y: 0}, {x: 270, y: 100}, {x: 270, y: 200}];
+
+  readonly position: IPosition = {x: 0, y: 660};
+  readonly size: ISize = {height: 300, width: 540};
+  readonly row: number = 3;
+  readonly column: number = 2;
 
   constructor() {
     super({ key: 'BattleControl'});
   }
 
-  create(parties: CharacterSprite[][]) {
-    let heroes = parties[0];
-    let monsters = parties[1];
-
+  create(party: CharacterSprite[]) {
     let graphics = this.add.graphics(this.position);
     graphics.lineStyle(1, 0xffffff);
     graphics.fillStyle(0x031f4c, 1);
 
-    this.drawControlsBox(graphics);
+    BattleControl.defaultCharacterControlPositions.forEach((menu) => {
+      this.drawControlsBox(graphics, menu.x, menu.y);
+    });
 
     let menus = this.add.container(this.position.x, this.position.y);
 
-    let enemiesMenu = new Menu(this, 301, 10);
-    monsters.forEach((monster) => {
-      enemiesMenu.addMenuItem(monster.character.id);
-    });
-    menus.add(enemiesMenu);
-
-    let actionsMenu = new Menu(this, 151, 10);
-    actionsMenu.addMenuItem('Attack');
-    menus.add(actionsMenu);
-
     let heroesMenu = new Menu(this, 1, 10);
-    heroes.forEach((hero) => {
+    party.forEach((hero) => {
       heroesMenu.addMenuItem(hero.character.id)
     });
     menus.add(heroesMenu);
   }
 
-  private drawControlsBox(graphics: Phaser.GameObjects.Graphics) {
-    // enemy menu
-    graphics.strokeRect(1, 0, 148, 200);
-    graphics.fillRect(1, 0, 148, 200);
-    // action menu
-    graphics.strokeRect(151, 0, 148, 200);
-    graphics.fillRect(151, 0, 148, 200);
-    // hero menu
-    graphics.strokeRect(301, 0, 497, 200);
-    graphics.fillRect(301, 0, 497, 200);
+  private drawControlsBox(graphics: Phaser.GameObjects.Graphics, x: number, y: number) {
+    graphics.strokeRect(x, y, 270, 100);
+    graphics.fillRect(x, y, 270, 100);
     return graphics;
   }
 

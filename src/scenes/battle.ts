@@ -6,16 +6,20 @@ import monstersData from '../../data/monsters.json';
 import heroeSprites from '../../assets/sample-heroes-sprite.png';
 import slimeSprites from '../../assets/sample-slimes-sprite.png';
 
+/**
+ * The BattleScene should take 2 parties that are going to battle as its data input, along with a config object for setting background,
+ * or any other settings related to future features.
+ */
 class BattleScene extends Phaser.Scene {
 
   // temporary sample data set
   heroes: any[] = [
-    {id: 'ragtag.roy', spriteConfig: {x: 550, y: 100, sprite: 'heroSprites', spriteFrame: 1}},
-    {id: 'ragtag.lennie', spriteConfig: {x: 550, y: 300, sprite: 'heroSprites', spriteFrame: 4}}
+    {id: 'ragtag.roy', spriteConfig: {x: 360, y: 100, sprite: 'heroSprites', spriteFrame: 1}},
+    {id: 'ragtag.lennie', spriteConfig: {x: 360, y: 300, sprite: 'heroSprites', spriteFrame: 4}}
   ];
   monsters: any[] = [
-    {id: 'ragtag.slime', spriteConfig: {x: 150, y: 100, sprite: 'slimeSprites', spriteFrame: 1}},
-    {id: 'ragtag.slime', spriteConfig: {x: 150, y: 300, sprite: 'slimeSprites', spriteFrame: 2}}
+    {id: 'ragtag.slime', spriteConfig: {x: 180, y: 100, sprite: 'slimeSprites', spriteFrame: 1}},
+    {id: 'ragtag.slime', spriteConfig: {x: 180, y: 300, sprite: 'slimeSprites', spriteFrame: 2}}
   ];
 
   heroSprites: Components.CharacterSprite[] = [];
@@ -53,7 +57,7 @@ class BattleScene extends Phaser.Scene {
       let sprite = this.addCharacterSprite(this, monster);
       return sprite;
     });
-    this.scene.launch('BattleControl', [this.heroSprites, this.monsterSprites]);
+    this.scene.launch('BattleControl', this.heroSprites);
   }
 
   private addCharacterSprite(scene: Phaser.Scene, character: any) {

@@ -8,12 +8,8 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
   backgroundColor: 0x000000,
 
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  scale: {
-    //we place it in the middle of the page.
-    autoCenter: Phaser.Scale.CENTER_BOTH
-  },
+  width: 540,
+  height: 960,
   physics: {
     default: 'arcade',
     arcade: {
