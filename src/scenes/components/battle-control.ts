@@ -1,19 +1,15 @@
-import { Menu } from './battle-controls/index';
+import { CharacterControl } from './battle-controls/index';
 import CharacterSprite from './character-sprite';
 
-interface IPosition {
-  x: number,
-  y: number
-}
 interface ISize {
   height: number,
   width: number
 }
 
 class BattleControl extends Phaser.Scene {
-  static readonly defaultCharacterControlPositions: IPosition[] = [{x: 0, y: 0}, {x: 0, y: 100}, {x: 0, y: 200}, {x: 270, y: 0}, {x: 270, y: 100}, {x: 270, y: 200}];
+  static readonly defaultCharacterControlPositions: Phaser.Types.GameObjects.Graphics.Options[] = [{x: 0, y: 0}, {x: 0, y: 100}, {x: 0, y: 200}, {x: 270, y: 0}, {x: 270, y: 100}, {x: 270, y: 200}];
 
-  readonly position: IPosition = {x: 0, y: 660};
+  readonly position: Phaser.Types.GameObjects.Graphics.Options = {x: 0, y: 660};
   readonly size: ISize = {height: 300, width: 540};
   readonly row: number = 3;
   readonly column: number = 2;
@@ -33,7 +29,7 @@ class BattleControl extends Phaser.Scene {
 
     let menus = this.add.container(this.position.x, this.position.y);
 
-    let heroesMenu = new Menu(this, 1, 10);
+    let heroesMenu = new CharacterControl(this, 1, 10);
     party.forEach((hero) => {
       heroesMenu.addMenuItem(hero.character.id)
     });
