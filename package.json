@@ -23,7 +23,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register test/**/*.ts",
+    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register ./test/*.spec.ts ./test/**/*.spec.ts",
     "lint": "./node_modules/.bin/eslint",
     "build": "./node_modules/.bin/parcel ./index.html"
   },

@@ -7,7 +7,7 @@ describe('creating a new party', () => {
     let members = [new CombatableCharacter("dummy")];
     let party = new Party(members);
     expect(party.members.length).to.equal(members.length);
-    expect(party.members[0].name).to.equal(members[0].name);
+    expect(party.members[0].id).to.equal(members[0].id);
   });
 
   it('allows a max party size setting on creation', () => {
