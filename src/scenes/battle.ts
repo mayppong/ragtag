@@ -21,6 +21,10 @@ class BattleScene extends Phaser.Scene {
     {id: 'ragtag.slime', spriteConfig: {x: 180, y: 100, sprite: 'slimeSprites', spriteFrame: 1}},
     {id: 'ragtag.slime', spriteConfig: {x: 180, y: 300, sprite: 'slimeSprites', spriteFrame: 2}}
   ];
+  spriteSheets: any[] = [
+    {key: 'heroSprites', url: heroeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }},
+    {key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }}
+  ];
 
   heroSprites: Components.CharacterSprite[] = [];
   monsterSprites: Components.CharacterSprite[] = [];
@@ -31,8 +35,9 @@ class BattleScene extends Phaser.Scene {
 
   preload () {
     // load resources
-    this.load.spritesheet({key: 'heroSprites', url: heroeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }});
-    this.load.spritesheet({key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }});
+    this.spriteSheets.forEach((sheet) => {
+      this.load.spritesheet(sheet);
+    });
 
     this.load.json('heroesData', heroesData);
     this.load.json('monstersData', monstersData);
