@@ -3,7 +3,7 @@ import CombatableCharacter from '../character/combatable';
 
 import heroesData from '../../data/heroes.json';
 import monstersData from '../../data/monsters.json';
-import heroeSprites from '../../assets/sample-heroes-sprite.png';
+import heroSprites from '../../assets/sample-heroes-sprite.png';
 import slimeSprites from '../../assets/sample-slimes-sprite.png';
 
 /**
@@ -13,16 +13,11 @@ import slimeSprites from '../../assets/sample-slimes-sprite.png';
 class BattleScene extends Phaser.Scene {
 
   // temporary sample data set
-  heroes: any[] = [
-    {id: 'ragtag.roy', spriteConfig: {x: 360, y: 100, sprite: 'heroSprites', spriteFrame: 1}},
-    {id: 'ragtag.lennie', spriteConfig: {x: 360, y: 300, sprite: 'heroSprites', spriteFrame: 4}}
-  ];
-  monsters: any[] = [
-    {id: 'ragtag.slime', spriteConfig: {x: 180, y: 100, sprite: 'slimeSprites', spriteFrame: 1}},
-    {id: 'ragtag.slime', spriteConfig: {x: 180, y: 300, sprite: 'slimeSprites', spriteFrame: 2}}
-  ];
-  spriteSheets: any[] = [
-    {key: 'heroSprites', url: heroeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }},
+  heroes: any[] = ['ragtag.roy', 'ragtag.lennie'];
+  monsters: any[] = ['ragtag.slime', 'ragtag.slime'];
+
+  spriteSheets: Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig[] = [
+    {key: 'heroSprites', url: heroSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }},
     {key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }}
   ];
 
@@ -35,7 +30,7 @@ class BattleScene extends Phaser.Scene {
 
   preload () {
     // load resources
-    this.spriteSheets.forEach((sheet) => {
+    this.spriteSheets.forEach((sheet: Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig) => {
       this.load.spritesheet(sheet);
     });
 
@@ -51,14 +46,22 @@ class BattleScene extends Phaser.Scene {
 
     let heroesData = this.cache.json.get('heroesData');
     this.heroSprites = this.heroes.map((hero) => {
+      return heroesData[hero];
+    }).map((hero, index) => {
       hero.character = new CombatableCharacter(hero.id);
+      hero.spriteConfig.x = 300 + (50 * (index + 1));
+      hero.spriteConfig.y = 100 * (index + 1);
       let sprite = this.addCharacterSprite(this, hero);
       return sprite;
     });
 
     let monstersData = this.cache.json.get('monstersData');
     this.monsterSprites = this.monsters.map((monster) => {
+      return monstersData[monster];
+    }).map((monster, index) => {
       monster.character = new CombatableCharacter(monster.id);
+      monster.spriteConfig.x = 50 + (50 * (index + 1));
+      monster.spriteConfig.y = 100 * (index + 1);
       let sprite = this.addCharacterSprite(this, monster);
       return sprite;
     });
