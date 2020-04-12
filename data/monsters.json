@@ -2,6 +2,7 @@
   "ragtag.slime": {
     "id": "ragtag.slime",
     "name": "Slime",
-    "description": "A cute squishy monster that just loves to eat. Left to its own device, it would eat everything in its path."
+    "description": "A cute squishy monster that just loves to eat. Left to its own device, it would eat everything in its path.",
+    "spriteConfig": { "sprite": "slimeSprites", "spriteFrame": 1 }
   }
 }

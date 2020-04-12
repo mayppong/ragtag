@@ -1,6 +1,7 @@
+.cache
 .parcel-cache
 node_modules
-_build
+dist
 
 *.swp
 .DS_Store

@@ -10,6 +10,6 @@ describe('creating a new battle', () => {
     let battle = new Battle([new Party(heroes), new Party(monsters)]);
 
     expect(battle.parties.length).to.equal(2);
-    expect(battle.parties[0].members[0].name).to.equal(heroes[0].name);
+    expect(battle.parties[0].members[0].id).to.equal(heroes[0].id);
   });
 });

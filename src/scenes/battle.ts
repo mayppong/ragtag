@@ -3,22 +3,26 @@ import CombatableCharacter from '../character/combatable';
 
 import heroesData from '../../data/heroes.json';
 import monstersData from '../../data/monsters.json';
-import heroeSprites from '../../assets/sample-heroes-sprite.png';
+import heroSprites from '../../assets/sample-heroes-sprite.png';
 import slimeSprites from '../../assets/sample-slimes-sprite.png';
 
+/**
+ * The BattleScene should take 2 parties that are going to battle as its data input, along with a config object for setting background,
+ * or any other settings related to future features.
+ */
 class BattleScene extends Phaser.Scene {
 
   // temporary sample data set
-  heroes: any[] = [
-    {id: 'ragtag.roy', spriteConfig: {x: 550, y: 100, sprite: 'heroSprites', spriteFrame: 1}},
-    {id: 'ragtag.lennie', spriteConfig: {x: 550, y: 300, sprite: 'heroSprites', spriteFrame: 4}}
-  ];
-  monsters: any[] = [
-    {id: 'ragtag.slime', spriteConfig: {x: 150, y: 100, sprite: 'slimeSprites', spriteFrame: 1}},
-    {id: 'ragtag.slime', spriteConfig: {x: 150, y: 300, sprite: 'slimeSprites', spriteFrame: 2}}
+  heroes: any[] = ['ragtag.roy', 'ragtag.lennie'];
+  monsters: any[] = ['ragtag.slime', 'ragtag.slime'];
+
+  spriteSheets: Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig[] = [
+    {key: 'heroSprites', url: heroSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }},
+    {key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }}
   ];
 
-  characterSprites: Components.CharacterSprite[] = [];
+  heroSprites: Components.CharacterSprite[] = [];
+  monsterSprites: Components.CharacterSprite[] = [];
 
   constructor() {
     super({ key: 'BattleScene'});
@@ -26,44 +30,49 @@ class BattleScene extends Phaser.Scene {
 
   preload () {
     // load resources
-    this.load.spritesheet({key: 'heroSprites', url: heroeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }});
-    this.load.spritesheet({key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }});
+    this.spriteSheets.forEach((sheet: Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig) => {
+      this.load.spritesheet(sheet);
+    });
 
     this.load.json('heroesData', heroesData);
     this.load.json('monstersData', monstersData);
 
     // load scene components
-    this.scene.add('BattleControl', Components.BattleControl, true);
+    this.scene.add('BattleControl', Components.BattleControl, false);
   }
 
   create () {
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
     let heroesData = this.cache.json.get('heroesData');
-    let heroes = this.heroes.map(function(hero) {
+    this.heroSprites = this.heroes.map((hero) => {
+      return heroesData[hero];
+    }).map((hero, index) => {
       hero.character = new CombatableCharacter(hero.id);
-      return hero;
+      hero.spriteConfig.x = 300 + (50 * (index + 1));
+      hero.spriteConfig.y = 100 * (index + 1);
+      let sprite = this.addCharacterSprite(this, hero);
+      return sprite;
     });
-    this.addCharacterSprites(this, heroes);
 
     let monstersData = this.cache.json.get('monstersData');
-    let monsters = this.monsters.map(function(monster) {
+    this.monsterSprites = this.monsters.map((monster) => {
+      return monstersData[monster];
+    }).map((monster, index) => {
       monster.character = new CombatableCharacter(monster.id);
-      return monster;
+      monster.spriteConfig.x = 50 + (50 * (index + 1));
+      monster.spriteConfig.y = 100 * (index + 1);
+      let sprite = this.addCharacterSprite(this, monster);
+      return sprite;
     });
-    this.addCharacterSprites(this, monsters);
-
-    this.scene.launch('BattleControl', this.characterSprites);
+    this.scene.launch('BattleControl', this.heroSprites);
   }
 
-  private addCharacterSprites (scene: Phaser.Scene, characters: any[]) {
-    for (let char of characters) {
-      let sprite = new Components.CharacterSprite(scene, char.character, char.spriteConfig);
-      sprite.setScale(5);
-
-      this.characterSprites.push(sprite);
-      scene.add.existing(sprite);
-    }
+  private addCharacterSprite(scene: Phaser.Scene, character: any) {
+    let sprite = new Components.CharacterSprite(scene, character.character, character.spriteConfig);
+    sprite.setScale(5);
+    this.add.existing(sprite);
+    return sprite;
   }
 
 }

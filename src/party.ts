@@ -1,4 +1,4 @@
-import { ICombatable } from './character/combatable';
+import CombatableCharacter, { ICombatable } from './character/combatable';
 
 /**
  * A class for combining combatable characters together to create a party
@@ -9,7 +9,9 @@ import { ICombatable } from './character/combatable';
 class Party {
   readonly maxSize: number = 5;
 
+  private _iteratorIndex: number = 0;
   protected _members: ICombatable[];
+
   get members(): ICombatable[] { return this._members; }
 
   constructor(members: ICombatable[], config?: any) {
