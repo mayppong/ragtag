@@ -9,11 +9,7 @@ interface IAttributes {
   MDEF: number;
 }
 
-interface ICombatable extends Character {
-  readonly stats?: IAttributes;
-}
-
-class CombatableCharacter extends Character implements ICombatable {
+class CombatableCharacter extends Character {
 
   static defaultStats = {
     HP: 1, MP: 1, PATK: 1, PDEF: 1, MATK: 1, MDEF: 1
@@ -39,5 +35,5 @@ class CombatableCharacter extends Character implements ICombatable {
   }
 }
 
-export { ICombatable, IAttributes };
+export { IAttributes };
 export default CombatableCharacter;

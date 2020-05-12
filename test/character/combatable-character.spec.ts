@@ -1,4 +1,4 @@
-import CombatableCharacter from '../../src/character/combatable';
+import CombatableCharacter from '../../src/character/combatable-character';
 import { expect } from 'chai';
 
 describe('CombatableCharacter', () => {

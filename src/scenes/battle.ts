@@ -1,5 +1,5 @@
 import * as Components from './components/index';
-import CombatableCharacter from '../character/combatable';
+import CombatableCharacter from '../character/combatable-character';
 
 import heroesData from '../../data/heroes.json';
 import monstersData from '../../data/monsters.json';

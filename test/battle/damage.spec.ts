@@ -1,4 +1,4 @@
-import CombatableCharacter from '../../src/character/combatable';
+import CombatableCharacter from '../../src/character/combatable-character';
 import DamageCalculator from '../../src/battle/damage';
 import { expect } from 'chai';
 

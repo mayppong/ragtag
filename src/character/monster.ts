@@ -1,5 +1,5 @@
-import { IAttributes } from './combatable';
-import CombatableCharacter from './combatable';
+import { IAttributes } from './combatable-character';
+import CombatableCharacter from './combatable-character';
 
 class Monster extends CombatableCharacter {
 
