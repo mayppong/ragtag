@@ -1,4 +1,4 @@
-import CombatableCharacter from './character/combatable-character';
+import CombatableCharacter from './characters/combatable-character';
 
 /**
  * A class for combining combatable characters together to create a party

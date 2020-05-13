@@ -1,19 +1,13 @@
-import { Character } from "../../character/index";
+import { Character, ISpriteConfig } from '../../characters/index';
 
-interface ISpriteConfig {
-  x: number,
-  y: number,
-  sprite: string,
-  spriteFrame: number
-}
 
 class CharacterSprite extends Phaser.GameObjects.Sprite {
-
   constructor(
       readonly scene: Phaser.Scene,
       readonly character: Character,
-      readonly spriteConfig: ISpriteConfig) {
-    super(scene, spriteConfig.x, spriteConfig.y, spriteConfig.sprite, spriteConfig.spriteFrame);
+      readonly spriteConfig: ISpriteConfig,
+      position: Phaser.Types.GameObjects.Graphics.Options = {x: 0, y: 0}) {
+    super(scene, position.x, position.y, spriteConfig.sprite, spriteConfig.spriteFrame);
   }
 }
 

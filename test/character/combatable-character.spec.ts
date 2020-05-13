@@ -1,4 +1,4 @@
-import CombatableCharacter from '../../src/character/combatable-character';
+import CombatableCharacter from '../../src/characters/combatable-character';
 import { expect } from 'chai';
 
 describe('CombatableCharacter', () => {
@@ -8,14 +8,14 @@ describe('CombatableCharacter', () => {
       let stats = {
         HP: 1, MP: 1, PATK: 1, PDEF: 1, MATK: 1, MDEF: 1
       };
-      let unit = new CombatableCharacter(id, stats);
+      let unit = new CombatableCharacter(id, {sprite: ''}, stats);
       expect(unit.id).to.equal(id);
       expect(unit.stats.HP).to.equal(stats.HP);
     });
 
     it('uses default stat when none is given', () => {
       let id = "ragtag.dummy";
-      let unit = new CombatableCharacter(id);
+      let unit = new CombatableCharacter(id, {sprite: ''});
       expect(unit.stats.HP).to.equal(CombatableCharacter.defaultStats.HP);
     });
   });
@@ -23,8 +23,8 @@ describe('CombatableCharacter', () => {
   describe('converting character object to JSON', () => {
     it('convert basic combatable characters', () => {
       let id = "ragtag.dummy";
-      let unit = new CombatableCharacter(id);
-      expect(JSON.stringify(unit)).to.equal(`{"id":"${id}","stats":{"HP":1,"MP":1,"PATK":1,"PDEF":1,"MATK":1,"MDEF":1}}`);
+      let unit = new CombatableCharacter(id, {sprite: ''});
+      expect(JSON.stringify(unit)).to.equal(`{"id":"${id}","spriteConfig":{"sprite":""},"stats":{"HP":1,"MP":1,"PATK":1,"PDEF":1,"MATK":1,"MDEF":1}}`);
     });
 
   });

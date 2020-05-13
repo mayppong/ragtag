@@ -1,4 +1,4 @@
-import CombatableCharacter from '../character/combatable-character';
+import CombatableCharacter from '../characters/combatable-character';
 
 /**
  * A class for calculating damages in a batlle between two units.
