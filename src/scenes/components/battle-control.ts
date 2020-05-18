@@ -1,11 +1,13 @@
 import { CharacterControl } from './battle-controls/index';
 import CharacterSprite from './character-sprite';
 
-interface ISize {
-  height: number,
-  width: number
-}
-
+/**
+ * The BattleControl class is used to essentially renders a grid of
+ * CharacterControls.
+ *
+ * TODO: This could perhaps be refactor to inherit from `Phaser.GameObject.Group`.
+ * It might be light than recreating an entire scene.
+ */
 class BattleControl extends Phaser.Scene {
   static readonly defaultCharacterControlPositions: Phaser.Types.GameObjects.Graphics.Options[] = [{x: 0, y: 0}, {x: 0, y: 100}, {x: 0, y: 200}, {x: 270, y: 0}, {x: 270, y: 100}, {x: 270, y: 200}];
   static readonly defaultGraphicsConfig: any = {

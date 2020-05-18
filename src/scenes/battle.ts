@@ -1,5 +1,7 @@
 import * as Components from './components/index';
-import { CombatableCharacter } from '../characters/index';
+import Party from '../party';
+import { Hero, Monster } from '../characters/index';
+import PartySprite from './components/party-sprite';
 
 import heroesData from '../../data/heroes.json';
 import monstersData from '../../data/monsters.json';
@@ -12,17 +14,10 @@ import slimeSprites from '../../assets/sample-slimes-sprite.png';
  */
 class BattleScene extends Phaser.Scene {
 
-  // temporary sample data set
-  heroes: any[] = ['ragtag.roy', 'ragtag.lennie'];
-  monsters: any[] = ['ragtag.slime', 'ragtag.slime'];
-
   spriteSheets: Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig[] = [
     {key: 'heroSprites', url: heroSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }},
     {key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }}
   ];
-
-  heroSprites: Components.CharacterSprite[] = [];
-  monsterSprites: Components.CharacterSprite[] = [];
 
   constructor() {
     super({ key: 'BattleScene'});
@@ -45,36 +40,18 @@ class BattleScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('rgba(0, 200, 0, 0.5)');
 
     let heroesData = this.cache.json.get('heroesData');
-    this.heroSprites = this.heroes.map((hero) => {
-      return heroesData[hero];
-    }).map((hero, index) => {
-      hero.character = new CombatableCharacter(hero.id);
-      hero.spriteConfig.x = 300 + (50 * (index + 1));
-      hero.spriteConfig.y = 100 * (index + 1);
-      let sprite = this.addCharacterSprite(this, hero);
-      return sprite;
-    });
+    let heroes = new Party([new Hero(heroesData['ragtag.roy']), new Hero(heroesData['ragtag.lennie'])]);
+    let heroesSprites = new PartySprite(this, heroes);
+    heroesSprites.setBattlePosition();
+    heroesSprites.characterSprites.forEach((sprite: Components.CharacterSprite) => { this.add.existing(sprite); });
 
     let monstersData = this.cache.json.get('monstersData');
-    this.monsterSprites = this.monsters.map((monster) => {
-      return monstersData[monster];
-    }).map((monster, index) => {
-      monster.character = new CombatableCharacter(monster.id);
-      monster.spriteConfig.x = 50 + (50 * (index + 1));
-      monster.spriteConfig.y = 100 * (index + 1);
-      let sprite = this.addCharacterSprite(this, monster);
-      return sprite;
-    });
-    this.scene.launch('BattleControl', this.heroSprites);
-  }
+    let monsters = new Party([new Monster(monstersData['ragtag.slime']), new Monster(monstersData['ragtag.slime'])]);
+    let monstersSprites = new PartySprite(this, monsters);
+    monstersSprites.characterSprites.forEach((sprite: Components.CharacterSprite) => { this.add.existing(sprite); });
 
-  private addCharacterSprite(scene: Phaser.Scene, character: any) {
-    let sprite = new Components.CharacterSprite(scene, character.character, character.spriteConfig);
-    sprite.setScale(5);
-    this.add.existing(sprite);
-    return sprite;
+    this.scene.launch('BattleControl', heroesSprites.characterSprites);
   }
-
 }
 
 export default BattleScene;

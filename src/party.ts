@@ -7,7 +7,7 @@ import CombatableCharacter from './characters/combatable-character';
  * creation.
  */
 class Party {
-  readonly maxSize: number = 5;
+  readonly maxSize: number = 6;
   protected _members: CombatableCharacter[];
 
   get members(): CombatableCharacter[] { return this._members; }
