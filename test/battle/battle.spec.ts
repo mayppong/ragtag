@@ -1,6 +1,6 @@
-import CombatableCharacter from '../src/characters/combatable-character';
-import Party from '../src/party';
-import Battle from '../src/battle';
+import { CombatableCharacter } from '../../src/core/character';
+import Party from '../../src/core/party';
+import Battle from '../../src/core/battle';
 import { expect } from 'chai';
 
 describe('creating a new battle', () => {

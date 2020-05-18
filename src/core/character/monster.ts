@@ -1,4 +1,4 @@
-import { ICombatableCharacter } from './interfaces';
+import { ICombatableCharacter } from './interface';
 import CombatableCharacter from './combatable-character';
 
 

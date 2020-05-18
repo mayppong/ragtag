@@ -2,7 +2,7 @@
  * Base class for all characters.
  *
  */
-import { ISpriteConfig } from './interfaces';
+import { ISpriteConfig } from './interface';
 
 
 class Character {

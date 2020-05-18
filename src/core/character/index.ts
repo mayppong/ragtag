@@ -1,4 +1,4 @@
-export * from './interfaces';
+export * from './interface';
 
 export { default as Character } from './character';
 export { default as CombatableCharacter } from './combatable-character';

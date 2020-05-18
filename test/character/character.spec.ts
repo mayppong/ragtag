@@ -1,4 +1,4 @@
-import Character from '../../src/characters/character';
+import Character from '../../src/core/character/character';
 import { expect } from 'chai';
 
 describe('Character', () => {

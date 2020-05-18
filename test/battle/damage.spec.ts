@@ -1,5 +1,5 @@
-import CombatableCharacter from '../../src/characters/combatable-character';
-import DamageCalculator from '../../src/battle/damage';
+import { CombatableCharacter } from '../../src/core/character';
+import { Damage as DamageCalculator } from '../../src/core/battle';
 import { expect } from 'chai';
 
 describe('Damage', () => {

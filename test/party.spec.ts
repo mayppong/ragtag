@@ -1,5 +1,5 @@
-import Party from '../src/party';
-import CombatableCharacter from '../src/characters/combatable-character';
+import Party from '../src/core/party';
+import { CombatableCharacter } from '../src/core/character';
 import { expect } from 'chai';
 
 describe('creating a new party', () => {

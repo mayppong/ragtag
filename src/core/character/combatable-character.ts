@@ -1,4 +1,4 @@
-import { ISpriteConfig, IAttributes, ICombatableCharacter } from './interfaces';
+import { ISpriteConfig, IAttributes, ICombatableCharacter } from './interface';
 import Character from './character';
 
 class CombatableCharacter extends Character implements ICombatableCharacter {

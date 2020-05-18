@@ -1,4 +1,4 @@
-import Party from './party';
+import Party from '../party';
 
 class Battle {
   protected _parties: Party[];
@@ -15,3 +15,4 @@ class Battle {
 }
 
 export default Battle;
+export { default as Damage } from './damage';

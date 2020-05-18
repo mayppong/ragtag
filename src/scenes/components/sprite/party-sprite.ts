@@ -1,6 +1,6 @@
-import Party from '../../party';
+import Party from '../../../core/party';
 import CharacterSprite from './character-sprite';
-import { CombatableCharacter, Character } from '../../characters';
+import { CombatableCharacter, Character } from '../../../core/character';
 
 class PartySprite extends Phaser.GameObjects.Group {
   static readonly defaultPosition: Phaser.Types.GameObjects.Graphics.Options = {x: 360, y: 100}

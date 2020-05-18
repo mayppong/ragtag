@@ -1,4 +1,4 @@
-import { Character, ISpriteConfig } from '../../characters/index';
+import { Character, ISpriteConfig } from '../../../core/character/index';
 
 
 class CharacterSprite extends Phaser.GameObjects.Sprite {

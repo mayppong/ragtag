@@ -1,5 +1,5 @@
-import { CharacterControl } from './battle-controls/index';
-import CharacterSprite from './character-sprite';
+import CharacterControl from './character-control';
+import CharacterSprite from '../../components/sprite/character-sprite';
 
 /**
  * The BattleControl class is used to essentially renders a grid of
@@ -36,12 +36,6 @@ class BattleControl extends Phaser.Scene {
       control.addMenuItem(hero.character.id);
       this.add.existing(control);
     });
-  }
-
-  private setGraphicsDefaultStyle(graphics: Phaser.GameObjects.Graphics) {
-    graphics.lineStyle(1, BattleControl.defaultGraphicsConfig.outlineStyle);
-    graphics.fillStyle(BattleControl.defaultGraphicsConfig.fillStyle, 1);
-    return graphics;
   }
 
   private drawCharacterControlsGrid(scene: Phaser.Scene, controlsConfig: any) {

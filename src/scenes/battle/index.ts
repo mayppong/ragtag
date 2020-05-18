@@ -1,12 +1,12 @@
-import * as Components from './components/index';
-import Party from '../party';
-import { Hero, Monster } from '../characters/index';
-import PartySprite from './components/party-sprite';
+import { BattleControl } from './components';
+import Party from '../../core/party';
+import { Hero, Monster } from '../../core/character';
+import { CharacterSprite, PartySprite } from '../components/sprite';
 
-import heroesData from '../../data/heroes.json';
-import monstersData from '../../data/monsters.json';
-import heroSprites from '../../assets/sample-heroes-sprite.png';
-import slimeSprites from '../../assets/sample-slimes-sprite.png';
+import heroesData from '../../../data/heroes.json';
+import monstersData from '../../../data/monsters.json';
+import heroSprites from '../../../assets/sample-heroes-sprite.png';
+import slimeSprites from '../../../assets/sample-slimes-sprite.png';
 
 /**
  * The BattleScene should take 2 parties that are going to battle as its data input, along with a config object for setting background,
@@ -33,7 +33,7 @@ class BattleScene extends Phaser.Scene {
     this.load.json('monstersData', monstersData);
 
     // load scene components
-    this.scene.add('BattleControl', Components.BattleControl, false);
+    this.scene.add('BattleControl', BattleControl, false);
   }
 
   create () {
@@ -43,12 +43,12 @@ class BattleScene extends Phaser.Scene {
     let heroes = new Party([new Hero(heroesData['ragtag.roy']), new Hero(heroesData['ragtag.lennie'])]);
     let heroesSprites = new PartySprite(this, heroes);
     heroesSprites.setBattlePosition();
-    heroesSprites.characterSprites.forEach((sprite: Components.CharacterSprite) => { this.add.existing(sprite); });
+    heroesSprites.characterSprites.forEach((sprite: CharacterSprite) => { this.add.existing(sprite); });
 
     let monstersData = this.cache.json.get('monstersData');
     let monsters = new Party([new Monster(monstersData['ragtag.slime']), new Monster(monstersData['ragtag.slime'])]);
     let monstersSprites = new PartySprite(this, monsters);
-    monstersSprites.characterSprites.forEach((sprite: Components.CharacterSprite) => { this.add.existing(sprite); });
+    monstersSprites.characterSprites.forEach((sprite: CharacterSprite) => { this.add.existing(sprite); });
 
     this.scene.launch('BattleControl', heroesSprites.characterSprites);
   }
