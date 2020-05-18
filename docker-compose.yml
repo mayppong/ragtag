@@ -1,14 +1,14 @@
 version: "3"
 services:
   test:
-    image: "node:13.8-slim"
+    image: "node:14.2-slim"
     command: "npm test"
     working_dir: /ragtag
     volumes:
       - ./:/ragtag
 
   build:
-    image: "node:13.8-slim"
+    image: "node:14.2-slim"
     command: "npm run build"
     working_dir: /ragtag
     volumes:
