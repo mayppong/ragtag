@@ -1,7 +1,5 @@
 import 'phaser';
-
-import BootScene from './scenes/boot';
-import BattleScene from './scenes/battle';
+import * as Scene from './scenes';
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
   title: 'Ragtag',
@@ -16,7 +14,7 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
       debug: false,
     },
   },
-  scene: [BootScene, BattleScene]
+  scene: [Scene.BootScene, Scene.BattleScene]
 };
 
 const game = new Phaser.Game(gameConfig);
