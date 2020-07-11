@@ -19,6 +19,8 @@ class BattleScene extends Phaser.Scene {
     {key: 'slimeSprites', url: slimeSprites, frameConfig: { frameWidth: 5, frameHeight: 10 }}
   ];
 
+  static readonly monstersOriginPosition: Phaser.Types.GameObjects.Graphics.Options = {x: 100, y: 100};
+  static readonly heroesOriginPosition: Phaser.Types.GameObjects.Graphics.Options = {x: 400, y: 100};
   constructor() {
     super({ key: 'BattleScene'});
   }
@@ -42,15 +44,32 @@ class BattleScene extends Phaser.Scene {
     let heroesData = this.cache.json.get('heroesData');
     let heroes = new Party([new Hero(heroesData['ragtag.roy']), new Hero(heroesData['ragtag.lennie'])]);
     let heroesSprites = new PartySprite(this, heroes);
-    heroesSprites.setBattlePosition();
+    this.setBattlePosition(heroesSprites, BattleScene.heroesOriginPosition);
     heroesSprites.characterSprites.forEach((sprite: CharacterSprite) => { this.add.existing(sprite); });
 
     let monstersData = this.cache.json.get('monstersData');
     let monsters = new Party([new Monster(monstersData['ragtag.slime']), new Monster(monstersData['ragtag.slime'])]);
     let monstersSprites = new PartySprite(this, monsters);
+    this.setBattlePosition(monstersSprites, BattleScene.monstersOriginPosition);
     monstersSprites.characterSprites.forEach((sprite: CharacterSprite) => { this.add.existing(sprite); });
 
     this.scene.launch('BattleControl', heroesSprites.characterSprites);
+  }
+
+  /**
+   *
+   * @param origin an x, y position mapping of the origin position from the top left
+   */
+  setBattlePosition(party: PartySprite, origin: Phaser.Types.GameObjects.Graphics.Options) {
+    party.characterSprites.forEach((sprite: CharacterSprite, index: number) => {
+      let x = origin.x + (50 * Math.pow(-1, index));
+      let y = origin.y + (100 * (index + 1));
+      sprite.setX(x);
+      sprite.setY(y);
+      sprite.setScale(5);
+      return sprite;
+    });
+    return this;
   }
 }
 

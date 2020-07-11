@@ -1,9 +1,12 @@
 import Party from '../../../core/party';
 import CharacterSprite from './character-sprite';
-import { CombatableCharacter, Character } from '../../../core/character';
+import { CombatableCharacter } from '../../../core/character';
 
+/**
+ * PartySprite is the base class for a grouping of character sprites.
+ *
+ */
 class PartySprite extends Phaser.GameObjects.Group {
-  static readonly defaultPosition: Phaser.Types.GameObjects.Graphics.Options = {x: 360, y: 100}
 
   get characterSprites(): Phaser.GameObjects.GameObject[] { return this.getChildren(); }
 
@@ -20,18 +23,6 @@ class PartySprite extends Phaser.GameObjects.Group {
       return this.addCharacterSprite(sprite);
     });
 
-    return this;
-  }
-
-  setBattlePosition() {
-    this.characterSprites.forEach((sprite: CharacterSprite, index: number) => {
-      let x = PartySprite.defaultPosition.x + (50 * (index + 1));
-      let y = PartySprite.defaultPosition.y + (100 * (index + 1));
-      sprite.setX(x);
-      sprite.setY(y);
-      sprite.setScale(5);
-      return sprite;
-    });
     return this;
   }
 
